@@ -1,22 +1,23 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 
 class NewsWebServices {
-  Dio? dio;
+  static late Dio dio;
 
-  NewsWebServices() {
-    BaseOptions options = BaseOptions(
-        baseUrl: 'https://newsapi.org',
+  static init()
+  {
+    dio=Dio(BaseOptions(
+        baseUrl: 'https://newsapi.org/',
         connectTimeout: 20 * 1000,
-        receiveTimeout: 20 * 1000);
-    dio = Dio(options);
+        receiveTimeout: 20 * 1000,
+        receiveDataWhenStatusError: true
+    ));
   }
-  Future<List<dynamic>> getNews() async {
-    try {
-      Response response = await dio!.get("category");
-      return response.data;
-    } catch (error) {
-      print(error.toString());
-      return [];
-    }
+
+   static Future<Response> getNews(
+      {required String url, required Map<String, dynamic> query}) async {
+
+      Response response = await dio.get(url,queryParameters: query);
+      return response;
   }
 }

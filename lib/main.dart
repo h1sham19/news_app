@@ -1,27 +1,37 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
-import 'package:easy_splash_screen/easy_splash_screen.dart';
-void main(){
-  runApp( DevicePreview(
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_app/business_logic/cubit/news_cubit.dart';
+import 'package:news_app/data/web_services/new_web_services.dart';
+import 'package:news_app/presentation/layout/app_structure.dart';
+import 'package:news_app/style/theme/theme_app.dart';
+import 'components/constant/bloc_observer.dart';
 
-      builder: (BuildContext context) => AfterSplash(),));
+void main() {
+  Bloc.observer = MyBlocObserver();
+  NewsWebServices.init();
+  runApp(DevicePreview(
+    builder: (BuildContext context) => const MyApp(),
+  ));
 }
 
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
 
-class AfterSplash extends StatefulWidget {
-
-  @override
-  State<AfterSplash> createState() => _AfterSplashState();
-}
-
-class _AfterSplashState extends State<AfterSplash> {
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return  MaterialApp(
       debugShowCheckedModeBanner: false,
-      home:  Scaffold(
-        backgroundColor: Colors.teal,
-      ),
+      theme: ThemeApp.lightTheme,
+      home:  BlocProvider(
+        create: (context)=>NewsCubit()..getBusiness(),
+        child: BlocConsumer<NewsCubit,NewsState>(
+          listener: (context,state){},
+          builder: (context,state){
+            return AppStructure();
+          },
+        ),
+      )
     );
   }
 }
