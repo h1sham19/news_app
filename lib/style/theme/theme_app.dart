@@ -11,16 +11,15 @@ class ThemeApp {
           statusBarIconBrightness: Brightness.dark,
         ),
         color: pramiry,
-        centerTitle: true,
         titleTextStyle: const TextStyle(
             fontWeight: FontWeight.bold, color: Colors.white, fontSize: 25),
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Colors.white,
         ),
         elevation: 2),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       unselectedItemColor: Colors.black,
-      backgroundColor: Color(0xa3fffefe),
+      backgroundColor: const Color(0xa3fffefe),
       selectedItemColor: pramiry,
       showUnselectedLabels: false,
       showSelectedLabels: false,

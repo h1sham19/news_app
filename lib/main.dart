@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeApp.lightTheme,
       home:  BlocProvider(
-        create: (context)=>NewsCubit()..getBusiness(),
+        create: (context)=>NewsCubit()..getBusinessNews(),
         child: BlocConsumer<NewsCubit,NewsState>(
           listener: (context,state){},
           builder: (context,state){

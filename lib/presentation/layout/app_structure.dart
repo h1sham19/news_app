@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/business_logic/cubit/news_cubit.dart';
-import 'package:news_app/data/web_services/new_web_services.dart';
-import 'package:news_app/style/theme/theme_app.dart';
 
 class AppStructure extends StatefulWidget {
   const AppStructure({Key? key}) : super(key: key);
@@ -22,11 +20,6 @@ class _AppStructureState extends State<AppStructure> {
               //todo:search function to work
             },
             icon: Icon(Icons.search))],
-        leading:IconButton(
-            onPressed: () {
-              //todo:setting function to work
-            },
-            icon: Icon(Icons.settings)) ,
       ),
       bottomNavigationBar: BottomNavigationBar(
         items:cubit.bottomItem,
