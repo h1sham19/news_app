@@ -23,9 +23,7 @@ class MyApp extends StatelessWidget {
     return BlocProvider(
       create: (context) => NewsCubit()..getBusinessNews(),
       child: BlocConsumer<NewsCubit, NewsState>(
-        listener: (context, state) {
-          // TODO: implement listener
-        },
+        listener: (context, state) {},
         builder: (context, state) {
           return MaterialApp(
               debugShowCheckedModeBanner: false,

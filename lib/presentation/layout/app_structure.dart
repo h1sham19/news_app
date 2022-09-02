@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:news_app/business_logic/cubit/news_cubit.dart';
 
 class AppStructure extends StatefulWidget {
@@ -32,9 +31,7 @@ class _AppStructureState extends State<AppStructure> {
                   : Icon(Icons.brightness_2_rounded)),
           IconButton(
               iconSize: 30,
-              onPressed: () {
-                //todo:search function to work
-              },
+              onPressed: () {},
               icon: Icon(Icons.search))
         ],
       ),
