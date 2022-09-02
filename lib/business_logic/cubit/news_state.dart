@@ -30,3 +30,5 @@ class NewsGetTechLoadingState extends NewsState{}
 class NewsGetTechSuccessState extends NewsState{}
 
 class NewsGetTechErrorState extends NewsState{}
+
+class ChangeThemeState extends NewsState{}
