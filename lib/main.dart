@@ -20,18 +20,25 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeApp.lightTheme,
-      home:  BlocProvider(
-        create: (context)=>NewsCubit()..getBusinessNews(),
-        child: BlocConsumer<NewsCubit,NewsState>(
-          listener: (context,state){},
-          builder: (context,state){
-            return AppStructure();
-          },
-        ),
-      )
+    return BlocProvider(
+      create: (context) => NewsCubit()..getBusinessNews(),
+      child: BlocConsumer<NewsCubit, NewsState>(
+        listener: (context, state) {
+          // TODO: implement listener
+        },
+        builder: (context, state) {
+          return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              theme: ThemeApp.lightTheme,
+              darkTheme: ThemeApp.darkTheme,
+              themeMode: NewsCubit.get(context).isDark
+                  ? ThemeMode.dark
+                  : ThemeMode.light,
+              home:AppStructure()
+
+              );
+        },
+      ),
     );
   }
 }

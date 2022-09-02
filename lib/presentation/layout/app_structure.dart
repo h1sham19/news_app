@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:news_app/business_logic/cubit/news_cubit.dart';
 
 class AppStructure extends StatefulWidget {
@@ -11,20 +12,36 @@ class AppStructure extends StatefulWidget {
 class _AppStructureState extends State<AppStructure> {
   @override
   Widget build(BuildContext context) {
-    var cubit=NewsCubit.get(context);
+    var cubit = NewsCubit.get(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text("News app"),
-        actions: [IconButton(
-            onPressed: () {
-              //todo:search function to work
-            },
-            icon: Icon(Icons.search))],
+        title: const Text(
+          "News app",
+        ),
+        actions: [
+          IconButton(
+              iconSize: 30,
+              onPressed: () {
+                cubit.changeTheme();
+              },
+              icon: cubit.isDark
+                  ? const ImageIcon(
+                      AssetImage("assets/images/sun.gif"),
+                      size: 30,
+                    )
+                  : Icon(Icons.brightness_2_rounded)),
+          IconButton(
+              iconSize: 30,
+              onPressed: () {
+                //todo:search function to work
+              },
+              icon: Icon(Icons.search))
+        ],
       ),
       bottomNavigationBar: BottomNavigationBar(
-        items:cubit.bottomItem,
+        items: cubit.bottomItem,
         currentIndex: cubit.currentIndex,
-        onTap: (index){
+        onTap: (index) {
           cubit.changeBottomBar(index);
         },
       ),

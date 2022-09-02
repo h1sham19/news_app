@@ -6,12 +6,11 @@ import 'package:news_app/presentation/screen/science_screen.dart';
 import 'package:news_app/presentation/screen/setting_screen.dart';
 import 'package:news_app/presentation/screen/sport_screen.dart';
 import 'package:news_app/presentation/screen/technology_screen.dart';
-
-import '../../data/web_services/new_web_services.dart';
 part 'news_state.dart';
 
 class NewsCubit extends Cubit<NewsState> {
   NewsCubit() : super(NewsInitialState());
+  bool isDark=false;
   int currentIndex = 0;
   String url = "v2/everything/";
   List<dynamic> business = [];
@@ -136,5 +135,10 @@ class NewsCubit extends Cubit<NewsState> {
     } else {
       emit(NewsGetScienceSuccessState());
     }
+  }
+
+  void changeTheme(){
+    isDark= !isDark;
+    emit(ChangeThemeState());
   }
 }
