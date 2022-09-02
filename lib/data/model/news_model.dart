@@ -22,7 +22,6 @@ class Sources{
 
   Sources(this.uId, this.name, this.description, this.url, this.category,
       this.language, this.country);
-
   Sources.fromJson(Map<String,dynamic> Json){
     name=Json['name'];
     uId=Json['id'];

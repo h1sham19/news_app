@@ -7,8 +7,9 @@ class NewsRepository{
 
   NewsRepository(this.newsWebServices);
 
-  Future<List<NewsModel>> fetchData() async {
-    final news=newsWebServices.getNews();
-    return;
+  static Future<dynamic> fetchData({required String url, required Map<String, dynamic> query}) async {
+    final news=NewsWebServices.getNews(url: url,query: query);
+    return news;
+    //todo: make list of news but found error
   }
 }
