@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:news_app/data/cache_data/cache_pref.dart';
 import 'package:news_app/data/repository/news_repository.dart';
 import 'package:news_app/presentation/screen/business_screen.dart';
 import 'package:news_app/presentation/screen/science_screen.dart';
@@ -10,7 +11,7 @@ part 'news_state.dart';
 
 class NewsCubit extends Cubit<NewsState> {
   NewsCubit() : super(NewsInitialState());
-  bool isDark=false;
+  bool isDark = false;
   int currentIndex = 0;
   String url = "v2/everything/";
   List<dynamic> business = [];
@@ -116,7 +117,6 @@ class NewsCubit extends Cubit<NewsState> {
     } else {
       emit(NewsGetScienceSuccessState());
     }
-
   }
 
   void getTechNews() {
@@ -137,8 +137,13 @@ class NewsCubit extends Cubit<NewsState> {
     }
   }
 
-  void changeTheme(){
-    isDark= !isDark;
-    emit(ChangeThemeState());
+  void changeTheme({bool? sharedData}) {
+    if (sharedData != null) {
+      isDark = sharedData;
+    } else
+      isDark = !isDark;
+    CacheData.saveData("isDark", isDark).then((value) {
+      emit(ChangeThemeState());
+    });
   }
 }
