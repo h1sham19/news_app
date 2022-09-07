@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 
 class NewsWebServices {
   static late Dio dio;
@@ -7,8 +6,6 @@ class NewsWebServices {
   static init() {
     dio = Dio(BaseOptions(
         baseUrl: 'https://newsapi.org/',
-        connectTimeout: 20 * 1000,
-        receiveTimeout: 20 * 1000,
         receiveDataWhenStatusError: true));
   }
 
