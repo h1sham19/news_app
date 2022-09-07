@@ -1,3 +1,4 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/business_logic/cubit/news_cubit.dart';
@@ -14,7 +15,7 @@ void main() async {
   await CacheData.init();
 
   bool? isDark = CacheData.getData(key: "isDark");
-  runApp(MyApp(isDark));
+  runApp(DevicePreview(builder: (context) => MyApp(isDark)));
 }
 
 class MyApp extends StatelessWidget {

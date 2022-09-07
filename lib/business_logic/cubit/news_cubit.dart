@@ -4,7 +4,6 @@ import 'package:news_app/data/cache_data/cache_pref.dart';
 import 'package:news_app/data/repository/news_repository.dart';
 import 'package:news_app/presentation/screen/business_screen.dart';
 import 'package:news_app/presentation/screen/science_screen.dart';
-import 'package:news_app/presentation/screen/setting_screen.dart';
 import 'package:news_app/presentation/screen/sport_screen.dart';
 import 'package:news_app/presentation/screen/technology_screen.dart';
 part 'news_state.dart';
@@ -13,7 +12,7 @@ class NewsCubit extends Cubit<NewsState> {
   NewsCubit() : super(NewsInitialState());
   bool isDark = false;
   int currentIndex = 0;
-  String url = "v2/everything/";
+  String url = "v2/top-headlines/";
   List<dynamic> business = [];
   List<dynamic> sports = [];
   List<dynamic> technology = [];
@@ -42,12 +41,7 @@ class NewsCubit extends Cubit<NewsState> {
           size: 30,
         ),
         label: "technology"),
-    BottomNavigationBarItem(
-        icon: Icon(
-          Icons.settings,
-          size: 30,
-        ),
-        label: "setting"),
+
   ];
 
   List<Widget> screenNav = const [
@@ -55,7 +49,6 @@ class NewsCubit extends Cubit<NewsState> {
     ScienceScreen(),
     SportsScreen(),
     TechnologyScreen(),
-    SettingScreen()
   ];
 
   void changeBottomBar(int index) {
@@ -70,7 +63,7 @@ class NewsCubit extends Cubit<NewsState> {
     emit(NewsGetBusinessLoadingState());
     if (business.isEmpty) {
       NewsRepository.fetchData(url: url, query: {
-        'q': 'business',
+        'category': 'business',
         'apiKey': "3ef1a706ea7c4afca323c69461290470"
       }).then((value) {
         business = value.data["articles"];
@@ -88,7 +81,7 @@ class NewsCubit extends Cubit<NewsState> {
     emit(NewsGetScienceLoadingState());
     if (science.isEmpty) {
       NewsRepository.fetchData(url: url, query: {
-        'q': 'science',
+        'category': 'science',
         'apiKey': "3ef1a706ea7c4afca323c69461290470"
       }).then((value) {
         science = value.data["articles"];
@@ -106,7 +99,7 @@ class NewsCubit extends Cubit<NewsState> {
     emit(NewsGetScienceLoadingState());
     if (sports.isEmpty) {
       NewsRepository.fetchData(url: url, query: {
-        'q': 'sports',
+        'category': 'sports',
         'apiKey': "3ef1a706ea7c4afca323c69461290470"
       }).then((value) {
         sports = value.data["articles"];
@@ -124,7 +117,7 @@ class NewsCubit extends Cubit<NewsState> {
     emit(NewsGetScienceLoadingState());
     if (technology.isEmpty) {
       NewsRepository.fetchData(url: url, query: {
-        'q': 'technology',
+        'category': 'technology',
         'apiKey': "3ef1a706ea7c4afca323c69461290470"
       }).then((value) {
         technology = value.data["articles"];
@@ -152,7 +145,7 @@ class NewsCubit extends Cubit<NewsState> {
   void getSearch(String val) {
     emit(NewsSearchLoadingState());
     NewsRepository.fetchData(
-            url: url,
+            url: "v2/everything/",
             query: {'q': val, 'apiKey': "3ef1a706ea7c4afca323c69461290470"})
         .then((value) {
       search = value.data["articles"];
