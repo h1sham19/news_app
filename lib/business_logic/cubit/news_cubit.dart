@@ -18,6 +18,7 @@ class NewsCubit extends Cubit<NewsState> {
   List<dynamic> sports = [];
   List<dynamic> technology = [];
   List<dynamic> science = [];
+  List<dynamic> search = [];
   static NewsCubit get(context) => BlocProvider.of(context);
 
   List<BottomNavigationBarItem> bottomItem = const [
@@ -67,7 +68,7 @@ class NewsCubit extends Cubit<NewsState> {
 
   void getBusinessNews() {
     emit(NewsGetBusinessLoadingState());
-    if (business.length == 0) {
+    if (business.isEmpty) {
       NewsRepository.fetchData(url: url, query: {
         'q': 'business',
         'apiKey': "3ef1a706ea7c4afca323c69461290470"
@@ -85,7 +86,7 @@ class NewsCubit extends Cubit<NewsState> {
 
   void getScienceNews() {
     emit(NewsGetScienceLoadingState());
-    if (science.length == 0) {
+    if (science.isEmpty) {
       NewsRepository.fetchData(url: url, query: {
         'q': 'science',
         'apiKey': "3ef1a706ea7c4afca323c69461290470"
@@ -103,7 +104,7 @@ class NewsCubit extends Cubit<NewsState> {
 
   void getSportsNews() {
     emit(NewsGetScienceLoadingState());
-    if (sports.length == 0) {
+    if (sports.isEmpty) {
       NewsRepository.fetchData(url: url, query: {
         'q': 'sports',
         'apiKey': "3ef1a706ea7c4afca323c69461290470"
@@ -121,7 +122,7 @@ class NewsCubit extends Cubit<NewsState> {
 
   void getTechNews() {
     emit(NewsGetScienceLoadingState());
-    if (technology.length == 0) {
+    if (technology.isEmpty) {
       NewsRepository.fetchData(url: url, query: {
         'q': 'technology',
         'apiKey': "3ef1a706ea7c4afca323c69461290470"
@@ -137,13 +138,28 @@ class NewsCubit extends Cubit<NewsState> {
     }
   }
 
-  void changeTheme({bool? sharedData}) {
+  void changeTheme({ bool? sharedData}) {
     if (sharedData != null) {
       isDark = sharedData;
-    } else
+    } else {
       isDark = !isDark;
-    CacheData.saveData("isDark", isDark).then((value) {
+    }
+    CacheData.saveData(key: "isDark",value: isDark).then((value) {
       emit(ChangeThemeState());
+    });
+  }
+
+  void getSearch(String val) {
+    emit(NewsSearchLoadingState());
+    NewsRepository.fetchData(
+            url: url,
+            query: {'q': val, 'apiKey': "3ef1a706ea7c4afca323c69461290470"})
+        .then((value) {
+      search = value.data["articles"];
+      emit(NewSearchSuccessState());
+    }).catchError((error) {
+      print(error.toString());
+      emit(NewsSearchErrorState());
     });
   }
 }

@@ -8,12 +8,11 @@ class CacheData {
     sharedPreferences = await SharedPreferences.getInstance();
   }
 
-  static Future<bool> saveData(
-      String key, bool isDark) async {
-    return await sharedPreferences.setBool(key, isDark);
+  static Future<bool> saveData({required String key,required bool value}) async {
+    return await sharedPreferences.setBool(key, value);
   }
 
-  static bool? getData(String key) {
+  static bool? getData({required String key}) {
     return sharedPreferences.getBool(key);
   }
 }

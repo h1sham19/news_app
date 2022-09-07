@@ -10,7 +10,7 @@ class BusinessScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<NewsCubit, NewsState>(listener: (context, state) {}, builder: (context, state) {
       var business = NewsCubit.get(context).business;
-      return ConditionalView(business);
+      return ConditionalView(business,context);
     });
   }
 }

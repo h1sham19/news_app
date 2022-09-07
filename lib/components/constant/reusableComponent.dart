@@ -1,7 +1,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 
- Widget NewsView(articles,context) {
+Widget NewsView(articles, context) {
   return Container(
     height: 250,
     child: Padding(
@@ -50,21 +50,21 @@ import 'package:flutter/material.dart';
   );
 }
 
-Widget SeparatNews(){
-   return const SizedBox(
-     height: 15,
-   );
+Widget SeparatNews() {
+  return const SizedBox(
+    height: 15,
+  );
 }
 
-Widget ConditionalView(list){
-   return ConditionalBuilder(
-       condition: list.length>0,
-       builder: (context) => ListView?.separated(
-           physics: const BouncingScrollPhysics(),
-           separatorBuilder: (context, index) => SeparatNews(),
-           itemCount: list.length,
-           itemBuilder: (context, index) => NewsView(list[index],context)),
-       fallback: (context) => Center(
-         child: CircularProgressIndicator(),
-       ));
+Widget ConditionalView(list,BuildContext context) {
+  return ConditionalBuilder(
+      condition: list.length > 0,
+      builder: (context) => ListView?.separated(
+          physics: const BouncingScrollPhysics(),
+          separatorBuilder: (context, index) => SeparatNews(),
+          itemCount: list.length,
+          itemBuilder: (context, index) => NewsView(list[index], context)),
+      fallback: (context) => const Center(
+            child: CircularProgressIndicator(),
+          ));
 }

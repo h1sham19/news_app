@@ -32,3 +32,9 @@ class NewsGetTechSuccessState extends NewsState{}
 class NewsGetTechErrorState extends NewsState{}
 
 class ChangeThemeState extends NewsState{}
+
+class NewsSearchLoadingState extends NewsState{}
+
+class NewSearchSuccessState extends NewsState{}
+
+class NewsSearchErrorState extends NewsState{}

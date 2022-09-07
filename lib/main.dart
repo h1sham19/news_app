@@ -1,4 +1,3 @@
-import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/business_logic/cubit/news_cubit.dart';
@@ -14,36 +13,40 @@ void main() async {
   NewsWebServices.init();
   await CacheData.init();
 
-  bool? isDark = CacheData.getData("isDark");
-  runApp(DevicePreview(
-    builder: (BuildContext context) => MyApp(isDark!),
-  ));
+  bool? isDark = CacheData.getData(key: "isDark");
+  runApp(MyApp(isDark));
 }
 
 class MyApp extends StatelessWidget {
-  final bool isDark;
+  final bool? isDark;
 
-  MyApp(this.isDark);
+  const MyApp(this.isDark);
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => NewsCubit()
-        ..getBusinessNews()
-        ..changeTheme(sharedData: isDark),
-      child: BlocConsumer<NewsCubit, NewsState>(
-        listener: (context, state) {},
-        builder: (context, state) {
-          return MaterialApp(
-              debugShowCheckedModeBanner: false,
-              theme: ThemeApp.lightTheme,
-              darkTheme: ThemeApp.darkTheme,
-              themeMode: NewsCubit.get(context).isDark
-                  ? ThemeMode.dark
-                  : ThemeMode.light,
-              home: AppStructure());
-        },
-      ),
-    );
+    return MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (context) => NewsCubit()),
+          BlocProvider(
+              create: (context) => NewsCubit()
+                ..getBusinessNews()
+                ..getScienceNews()
+                ..getSportsNews()
+                ..getTechNews()
+                ..changeTheme(sharedData: isDark))
+        ],
+        child: BlocConsumer<NewsCubit, NewsState>(
+          listener: (context, state) {},
+          builder: (context, state) {
+            return MaterialApp(
+                debugShowCheckedModeBanner: false,
+                theme: ThemeApp.lightTheme,
+                darkTheme: ThemeApp.darkTheme,
+                themeMode: NewsCubit.get(context).isDark
+                    ? ThemeMode.dark
+                    : ThemeMode.light,
+                home: const AppStructure());
+          },
+        ));
   }
 }
